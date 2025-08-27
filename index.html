@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Mood Kiosk – No-Node Starter</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <meta name="theme-color" content="#0b0b0c">
+  <style>
+   :root { --bg:#0b0b0c; --card:#131316; --text:#f2f2f2; --muted:#9aa0a6; --accent:#86b7ff; }
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body { margin:0; background: var(--bg); color: var(--text); font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+
+/* Make outer wrappers full-bleed so each section can truly fill the page */
+.app{ min-height: 100vh; min-height: 100dvh; padding: 0; display:block; }
+.shell{
+  width: 100%;
+  max-width: none;
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+}
+
+h1 { line-height:1.2; font-size: clamp(24px, 3vw, 36px); margin: 0 0 8px; }
+p { color: #d7d7d7; margin: 0 0 10px; }
+.muted { color: var(--muted); }
+
+/* Each screen fills the viewport and centers its content */
+.screen{
+  display: none;
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+}
+.screen.active{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  animation: fade .25s ease-in;
+}
+@keyframes fade { from {opacity:0; transform: translateY(4px);} to {opacity:1; transform:none;} }
+
+.grid { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }
+@media (min-width: 600px){ .grid { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+
+.btn { border:1px solid #2a2a2e; background:#19191c; color:#fff; border-radius: 14px; padding: 14px 16px; font-weight:700; cursor:pointer; min-height:56px; }
+.btn:active { transform: scale(.985); }
+.row { display:flex; gap: 10px; flex-wrap: wrap; }
+.chip { border-radius: 999px; padding: 8px 14px; background: #1d1d20; border: 1px solid #2a2a2e; cursor:pointer; }
+.chip.active { outline: 2px solid var(--accent); }
+.swatch { width: 28px; height: 28px; border-radius: 50%; border: 2px solid #2a2a2e; cursor: pointer; }
+.swatch.active { outline: 2px solid #fff; }
+
+/* --- Canvas wrapper with placeholder image --- */
+.canvas-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  aspect-ratio: 2/3; /* keep proportions */
+  border: 1px dashed #2b2b2f;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.canvas-wrap img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 0;
+}
+.canvas-wrap canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display:block;
+  touch-action: none;
+  z-index: 1; /* paint over image */
+}
+
+.footer { display:flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
+
+/* ---------- Screen 1: full-cover background hero ---------- */
+#s1 {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0;
+  padding: 16px;
+  text-align:center;
+  color:#fff;
+}
+#s1::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: url("./images/home.png") center / cover no-repeat;
+  transform: scale(1.02);
+  filter: brightness(.85);
+  z-index: 0;
+}
+#s1::after {
+  content:"";
+  position:absolute; inset:0;
+  background: linear-gradient(to bottom, rgba(0,0,0,.25), rgba(0,0,0,.55));
+  z-index: 0;
+}
+#s1 .s1-content { position: relative; z-index: 1; padding: 1rem; display:grid; gap:14px; justify-items:center; }
+#s1 h1 { font-size: clamp(28px, 4vw, 46px); margin:0; text-shadow: 0 2px 10px rgba(0,0,0,.35); }
+.start-btn { border:none; border-radius: 999px; padding: 16px 28px; font-weight:800; cursor:pointer; background:#ff6b6b; color:#fff; box-shadow: 0 8px 24px rgba(0,0,0,.25); }
+.start-btn:hover { background:#ff4c4c; }
+.start-btn:active { transform: translateY(1px) scale(.99); }
+
+@media (max-width: 576px) {
+  #s1 { padding: 12px; }
+  #s1 h1 { font-size: 1.6rem; }
+}
+
+/* ---------- Mood Selection screen (#sMood) ---------- */
+#sMood { background:#131316; color:#fff; padding: 24px 16px; }
+#sMood h1 { margin-bottom: 6px; }
+#sMood .muted { margin-bottom: 18px; }
+
+.mood-tile {
+  background: rgba(255,255,255,.04);
+  border: 1px solid #2a2a2e;
+  border-radius: 16px;
+  padding: 14px 10px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:8px;
+  color:#fff;
+  font-weight:700;
+  cursor:pointer;
+  user-select:none;
+  transition: transform .06s ease, background .2s ease;
+}
+.mood-tile:hover { background: rgba(255,255,255,.07); }
+.mood-tile:active { transform: translateY(1px) scale(.99); }
+.mood-tile img {
+  width: 90px; height: 90px; border-radius: 50%; object-fit: cover;
+  background: rgba(255,255,255,0.08); display:block;
+}
+@media (max-width:576px){
+  .mood-tile img { width:72px; height:72px; }
+}
+
+/* ---------- Other full-page screens ---------- */
+#s2, #s3, #s4, #s5, #brainSend {
+  background:#131316;
+  color:#fff;
+  padding: 24px 16px;
+}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="shell">
+
+      <!-- Screen 1 -->
+      <section id="s1" class="screen active">
+        <div class="s1-content">
+          <h1>Click here to Start</h1>
+          <button class="start-btn" data-action="start">Click here to start</button>
+        </div>
+      </section>
+
+      <!-- Mood Selection -->
+      <section id="sMood" class="screen">
+        <h1>Tell us how you feel today</h1>
+        <p class="muted">Tap an option.</p>
+        <div class="grid" id="moodGrid">
+          <button class="mood-tile" data-mood="Scared"><img src="./images/scared.png"><span>Scared</span></button>
+          <button class="mood-tile" data-mood="Happy"><img src="./images/happy.png"><span>Happy</span></button>
+          <button class="mood-tile" data-mood="Angry"><img src="./images/mad.png"><span>Angry</span></button>
+          <button class="mood-tile" data-mood="Sad"><img src="./images/sad.png"><span>Sad</span></button>
+          <button class="mood-tile" data-mood="Neutral"><img src="./images/neutral.png"><span>Neutral</span></button>
+          <button class="mood-tile" data-mood="Surprised"><img src="./images/suprised.png"><span>Surprised</span></button>
+        </div>
+      </section>
+
+      <!-- Confirm -->
+      <section id="s2" class="screen">
+        <h1>Today you are feeling… <span id="chosenMood"></span></h1>
+        <div class="footer">
+          <button class="btn" data-action="back">Back</button>
+          <button class="btn" data-action="accept">Accept</button>
+        </div>
+      </section>
+
+      <!-- Paint / Body Map -->
+      <section id="s3" class="screen">
+        <h1>Show us where you feel it</h1>
+        <p class="muted">Pick a color and paint.</p>
+        <div class="row" style="margin:10px 0;">
+          <div id="palette" class="row"></div>
+          <button id="clearBtn" class="chip" type="button">Clear</button>
+        </div>
+        <!-- Placeholder image with paintable canvas -->
+        <div class="canvas-wrap">
+          <img src="./images/standingpic.png" alt="Body placeholder">
+          <canvas id="paint" width="600" height="900"></canvas>
+        </div>
+        <div class="footer">
+          <button class="btn" data-action="back">Back</button>
+          <button class="btn" data-action="accept">Accept</button>
+        </div>
+      </section>
+
+      <!-- Info -->
+      <section id="s4" class="screen">
+        <h1 id="t4">About what you’re feeling</h1>
+        <div id="info"></div>
+        <div class="footer">
+          <button class="btn" data-action="back">Back</button>
+          <button class="btn" data-action="brain">Next</button>
+        </div>
+      </section>
+
+
+      <section id="brainSend" class="screen">
+        <h1>Send to the Brain</h1>
+        <button class="btn" id="oledBtn">Send it to the Brain</button>
+        <div class="footer">
+          <button class="btn" data-action="back">Back</button>
+          <button class="btn" data-action="accept">Next</button>
+          
+        </div>
+      </section>
+
+      <section id="factPage" class="screen">
+        <h1>Facts</h1>
+        <div class="footer">
+          <button class="btn" data-action="back">Back</button>
+          <button class="btn" data-action="accept">Next</button>
+        </div>
+      </section>
+
+
+      <!-- Thanks -->
+      <section id="s5" class="screen">
+        <h1>Thank you!</h1>
+        <p class="muted">You’re not alone. Explore resources or talk to someone you trust.</p>
+        <div class="footer">
+          <button class="btn" data-action="restart">Start Over</button>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    const state = { step:"s1", mood:null, strokes:[], color:"#ff595e", erasing:false };
+    const $ = s=>document.querySelector(s);
+
+    function show(id){
+      document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      state.step=id;
+      window.scrollTo({top:0,left:0,behavior:'instant'});
+    }
+
+    // Mood selection
+    document.getElementById("moodGrid").addEventListener("click", e=>{
+      const el = e.target.closest(".mood-tile");
+      if(!el) return;
+      state.mood = el.dataset.mood;
+      $("#chosenMood").textContent = state.mood;
+      show("s2");
+    });
+
+    // Nav -- trigger n route 
+    document.body.addEventListener("click", (e) => {
+      const el = e.target.closest("[data-action]");
+      if (!el) return;
+      const a = el.dataset.action;
+
+      if (a === "start") return show("sMood");
+      if (a === "brain") return show("brainSend");   // <- own route
+
+      if (a === "back") {
+        if (state.step === "s2") return show("sMood");
+        if (state.step === "s3") return show("s2");
+        if (state.step === "s4") return show("s3");
+        if (state.step === "brainSend") return show("s4"); // back from brain page
+        if (state.step === "factPage") return show("factPage");
+        if (state.step === "s5") return show("s4");
+        return;
+      }
+
+      if (a === "accept") {
+        if (state.step === "s2") return show("s3");
+        if (state.step === "s3") return show("s4");
+        if(state.step === "brainSend") return show("factPage")
+        if(state.step === "factPage") return show("s5");
+        return;
+      }
+
+      if (a === "next") return show("s5");
+      if (a === "restart") return show("s1");
+    });
+
+
+    // Canvas painting
+    const canvas=$("#paint"), ctx=canvas.getContext("2d"); let drawing=false;
+    function coords(evt){ const r=canvas.getBoundingClientRect(), d=window.devicePixelRatio||1;
+      return {x:(evt.clientX-r.left), y:(evt.clientY-r.top)};
+    }
+    canvas.addEventListener("pointerdown",e=>{drawing=true;ctx.beginPath();ctx.moveTo(...Object.values(coords(e)));});
+    canvas.addEventListener("pointermove",e=>{if(!drawing) return; const {x,y}=coords(e);ctx.lineTo(x,y);ctx.strokeStyle=state.color;ctx.lineWidth=8;ctx.lineCap="round";ctx.stroke();});
+    canvas.addEventListener("pointerup",()=>drawing=false);
+
+    // Palette
+    const palette=document.getElementById("palette");
+    ["#ff595e","#ffca3a","#8ac926","#1982c4","#6a4c93","#ffffff"].forEach(hex=>{
+      const b=document.createElement("button"); b.className="swatch"; b.style.background=hex;
+      b.onclick=()=>{state.color=hex;};
+      palette.appendChild(b);
+    });
+    document.getElementById("clearBtn").onclick=()=>{ctx.clearRect(0,0,canvas.width,canvas.height);};
+
+
+
+    document.getElementById("oledBtn").addEventListener("click", async ()=>{
+    try {
+      await fetch("http://192.168.0.65/json/state", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ on: "t"})
+      });
+      console.log("Payload sent to WLED");
+    } catch(err) {
+      console.log("POST failed:", err);
+    }
+  });
+
+
+
+  //   document.getElementById("oledBtn").addEventListener("click", async () => {
+  //   try {
+  //     const r = await fetch("/wled", {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({ on: "t" })
+  //     });
+  //     console.log("WLED response status:", r.status);
+  //   } catch (err) {
+  //     console.error("POST failed:", err);
+  //   }
+  // });
+
+
+
+
+  </script>
+</body>
+</html>
