@@ -3,7 +3,18 @@ function DoSomething(){
 
     // Use SweetAlert to display an alert
     Swal.fire({
-        title: 'Hows the page look on the tablet??',
+        title: 'English',
+        icon: 'question',
+        confirmButtonText: 'OK'
+    });
+}
+
+function DoSomethingSpanish(){
+    window.alert = function () { };
+
+    // Use SweetAlert to display an alert
+    Swal.fire({
+        title: 'Espanol',
         icon: 'question',
         confirmButtonText: 'OK'
     });
