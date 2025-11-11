@@ -1,3 +1,8 @@
+/*
+* This function is going to be the main worker
+* first document. gets the current pages "ID" abd will add the d-none - which effectively hides it
+* second document. gets the ID for the next page we want base on ID. we remove the d-none from it to make it visible
+*/
 function showPage(currentPageID, nextPageID){
   // hides current page it was on
   document.getElementById(currentPageID).classList.add("d-none");
@@ -5,7 +10,7 @@ function showPage(currentPageID, nextPageID){
   // then shows next page it clicked on
   document.getElementById(nextPageID).classList.remove("d-none");
 
-  console.log("english pressed")
+  console.log("something was pressed")
 
 }
     

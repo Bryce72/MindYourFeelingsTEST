@@ -6,6 +6,10 @@ will set up better package management if grows
 
 
 
+!!! When using safari dev in response mode if boxes show up funny, 
+      `check and uncheck the "diable images" "disable css" and "disable javascript" in the core functions section
+
+
 
 Then set:
 Setting	Value
