@@ -1,13 +1,12 @@
-function DoSomething(){
-  document.getElementById("pageHome").classList.add("d-none");
-  document.getElementById("pageEnglish").classList.remove("d-none");
+function showPage(currentPageID, nextPageID){
+  // hides current page it was on
+  document.getElementById(currentPageID).classList.add("d-none");
 
-}
+  // then shows next page it clicked on
+  document.getElementById(nextPageID).classList.remove("d-none");
 
-function DoSomethingSpanish(){
-  document.getElementById("pageHome").classList.add("d-none");
-  document.getElementById("pageSpanish").classList.remove("d-none");
-  console.log("pressed")
+  console.log("english pressed")
+
 }
     
     

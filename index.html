@@ -20,20 +20,23 @@
     <img src="./home.jpg" alt="Mind Your Feelings - Page 1" class="page-img">
 
     <!-- Button positioned somewhere on the image -->
-    <button class="hotspot" style="top: 86%; left: 17%;" onclick="DoSomething()"></button>
-    <button class="hotspot" style="top: 86%; left: 53%;" onclick="DoSomethingSpanish()"></button>
+    <button class="hotspot" style="top: 86%; left: 17%;" onclick="showPage('pageHome', 'pageEnglish')"></button>
+    <button class="hotspot" style="top: 86%; left: 53%;" onclick="showPage('pageHome', 'pageSpanish')"></button>
   </div>
 
   <!-- English page 2 -->
   <div id="pageEnglish" class="page-container d-none">
     <img src="./english-page2.jpg" class="page-img">
-
     <!-- This is where the 6 diff hotspots (button clickables will go for page 2) -->
-    <button class="hotspotpage2" style="top:25%; left:15%;"></button>
+    <button class="hotspotpage2" style="top:25%; left:15%;" onclick="showPage('pageEnglish', 'pageEnglish3_happy')"></button>
   </div>
 
-  <!-- English Page 3-->
-  
+  <!-- English Page 3 happy-->
+  <div id="pageEnglish3_happy" class="page-container d-none">
+    <img src="./englishpage3_happy.jpg" class="page-img">
+
+    <button class="hotspotpage3" style="top:83.5%; left:19%;" onclick="showPage('pageEnglish3_happy', 'pageHome')"></button>
+  </div>
   
   
   
