@@ -1,28 +1,13 @@
 function DoSomething(){
-    // window.alert = function () { };
-
-    // // Use SweetAlert to display an alert
-    // Swal.fire({
-    //     title: 'English',
-    //     icon: 'question',
-    //     confirmButtonText: 'OK'
-    // });
   document.getElementById("pageHome").classList.add("d-none");
   document.getElementById("pageEnglish").classList.remove("d-none");
 
 }
 
 function DoSomethingSpanish(){
-    // window.alert = function () { };
-
-    // // Use SweetAlert to display an alert
-    // Swal.fire({
-    //     title: 'Espanol',
-    //     icon: 'question',
-    //     confirmButtonText: 'OK'
-    // });
   document.getElementById("pageHome").classList.add("d-none");
   document.getElementById("pageSpanish").classList.remove("d-none");
+  console.log("pressed")
 }
     
     
