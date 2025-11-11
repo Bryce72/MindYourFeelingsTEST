@@ -1,0 +1,47 @@
+.container{
+    display: flex;
+    flex-direction: column;
+}
+.topContainer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.midContainer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.footContainer {
+  position: relative;
+  width: 100%;
+}
+
+
+.footContainer img {
+  width: 100%;
+  height: auto;
+}
+
+
+.page1Txt{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);  
+    font-size: 3vw;               
+}
+
+.page1btns {
+  position: absolute;
+  bottom: 10%; 
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  gap: 3rem; 
+}
