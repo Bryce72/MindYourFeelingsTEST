@@ -13,7 +13,68 @@ function showPage(currentPageID, nextPageID){
   console.log("something was pressed")
 
 }
-    
+
+
+
+
+async function saveBodyLocally() {
+  const page = document.getElementById('pageEnglish4_canvas');
+  if (!page) return;
+
+  // DEFINE BOX (matches your #bodyWrap)
+  const box = { x: 120, y: 160, width: 360, height: 640 };
+
+  // STEP 1: FORCE SHOW PAGE (even if d-none)
+  const wasHidden = page.classList.contains('d-none');
+  if (wasHidden) page.classList.remove('d-none');
+
+  // STEP 2: SHOW DEBUG BOX
+  let debugBox = document.getElementById('debug-screenshot-box');
+  if (!debugBox) {
+    debugBox = document.createElement('div');
+    debugBox.id = 'debug-screenshot-box';
+    debugBox.style.position = 'fixed';
+    debugBox.style.border = '3px solid red';
+    debugBox.style.pointerEvents = 'none';
+    debugBox.style.zIndex = '9999';
+    debugBox.style.boxShadow = '0 0 0 1px white';
+    document.body.appendChild(debugBox);
+  }
+  debugBox.style.left = box.x + 'px';
+  debugBox.style.top = box.y + 'px';
+  debugBox.style.width = box.width + 'px';
+  debugBox.style.height = box.height + 'px';
+
+  // STEP 3: Wait for render
+  await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+
+  // STEP 4: CAPTURE
+  const canvas = await html2canvas(document.body, {
+    scale: window.devicePixelRatio,
+    useCORS: true,
+    x: box.x,
+    y: box.y,
+    width: box.width,
+    height: box.height
+  });
+
+  // STEP 5: HIDE PAGE AGAIN
+  if (wasHidden) page.classList.add('d-none');
+
+  // STEP 6: REMOVE DEBUG BOX
+  setTimeout(() => debugBox.remove(), 800);
+
+  // STEP 7: DOWNLOAD
+  canvas.toBlob(blob => {
+    if (!blob) return;
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `body-screenshot-${Date.now()}.png`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }, 'image/png');
+}
     
     
     

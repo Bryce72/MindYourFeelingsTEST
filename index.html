@@ -10,6 +10,8 @@
   <!-- SweetAlert2 CSS  for pop up box-->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+  <!--to save canvas-->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <title>Mind Your Feelings</title>
 </head>
 
@@ -17,7 +19,7 @@
 
   <!-- Page 1 -->
   <div class="page-container" id="pageHome">
-    <img src="./home.jpg" alt="Mind Your Feelings - Page 1" class="page-img">
+    <img src="./images/home.jpg" alt="Mind Your Feelings - Page 1" class="page-img">
 
     <!-- Button positioned somewhere on the image -->
     <button class="hotspot" style="top: 86%; left: 17%;" onclick="showPage('pageHome', 'pageEnglish')"></button>
@@ -26,7 +28,7 @@
 
   <!-- English page 2 -->
   <div id="pageEnglish" class="page-container d-none">
-    <img src="./english-page2.jpg" class="page-img">
+    <img src="./images/english/english-page2.jpg" class="page-img">
 
     <!-- This is where the 6 diff hotspots (button clickables will go for page 2) -->
     <button class="hotspotpage2" style="top:25%; left:15%;" onclick="showPage('pageEnglish', 'pageEnglish3_happy')"></button>
@@ -36,7 +38,7 @@
 
   <!-- English Page 3 happy-->
   <div id="pageEnglish3_happy" class="page-container d-none">
-    <img src="./englishpage3_happy.jpg" class="page-img">
+    <img src="./images/english/englishpage3_happy.jpg" class="page-img">
     <!-- Go back-->
     <button class="hotspotpage3" style="top:83.5%; left:19%;" onclick="showPage('pageEnglish3_happy', 'pageEnglish')"></button>
     <!-- Accept-->
@@ -50,12 +52,23 @@
   <!-- English Page 3 content -->
   <!-- English Page 3 anger -->
 
-    <!-- English Page 4 canvas-->
+  <!-- English Page 4 canvas-->
   <div id="pageEnglish4_canvas" class="page-container d-none">
-    <img src="./englishpage4_canvas.jpg" class="page-img">
+    <img src="./images/english/englishpage4_canvas.jpg" class="page-img">
+
+
+    <div id="bodyWrap" style="position:absolute; left:120px; top:160px; width:360px; height:640px; z-index:5;">
+        <img id="bodyImg" src="./body.png" style="position:absolute; inset:0; width:100%; height:100%; pointer-events:none;">
+    </div>
 
     <!-- Accept-->
-    <button class="hotspotpage4" style="top:91.1%; left:29%;" onclick="showPage('pageEnglish3_happy', 'pageHome')"></button>
+    <!-- <button class="hotspotpage4" style="top:91.1%; left:29%;" onclick="showPage('pageEnglish4_canvas', 'pageHome')"></button>
+    <button class="hotspotpage4" style="top:91.1%; left:29%;" onclick="saveBodyLocally('pageEnglish4_canvas', 'pageHome')"></button> -->
+      <button
+        class="hotspotpage4"
+        style="top:91.1%; left:29%;"
+        onclick="saveBodyLocally().then(() => showPage('pageEnglish4_canvas', 'pageHome'))">
+      </button>
   </div>
 
 
@@ -65,13 +78,13 @@
   
   <!-- Spanish page 2-->
   <div id="pageSpanish" class="page-container d-none">
-    <img src="./spanish-page2.jpg" class="page-img">
+    <img src="./images/spanish/spanish-page2.jpg" class="page-img">
     <button class="hotspotpage2" style="top:25%; left:15%;" onclick="showPage('pageSpanish', 'pageSpanish3_happy')"></button>
   </div>
 
   <!-- Spanish Page 3 happy-->
   <div id="pageSpanish3_happy" class="page-container d-none">
-    <img src="./spanishpage3_happy.jpg" class="page-img">
+    <img src="./images/spanish/spanishpage3_happy.jpg" class="page-img">
     <button class="hotspotpage3" style="top:83.5%; left:19%;" onclick="showPage('pageSpanish3_happy', 'pageSpanish')"></button>
     <button class="hotspotpage3" style="top:83.5%; left:55%;" onclick="showPage('pageSpanish3_happy', 'pageHome')"></button>
   </div>
