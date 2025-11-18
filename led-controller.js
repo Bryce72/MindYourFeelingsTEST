@@ -17,65 +17,149 @@ function showPage(currentPageID, nextPageID){
 
 
 
-async function saveBodyLocally() {
-  const page = document.getElementById('pageEnglish4_canvas');
-  if (!page) return;
+  let drawCtx;
+  let drawCanvas;
+  let currentColor = '#c62828';   // default red
+  let drawing = false;
+  let lastX = 0, lastY = 0;
+  let canvasReady = false;
 
-  // DEFINE BOX (matches your #bodyWrap)
-  const box = { x: 120, y: 160, width: 360, height: 640 };
+  // Call this when page 4 is first shown
+  function initBodyCanvas() {
+    if (canvasReady) return;
 
-  // STEP 1: FORCE SHOW PAGE (even if d-none)
-  const wasHidden = page.classList.contains('d-none');
-  if (wasHidden) page.classList.remove('d-none');
+    const wrap = document.getElementById('bodyWrap');
+    drawCanvas = document.getElementById('draw');
 
-  // STEP 2: SHOW DEBUG BOX
-  let debugBox = document.getElementById('debug-screenshot-box');
-  if (!debugBox) {
-    debugBox = document.createElement('div');
-    debugBox.id = 'debug-screenshot-box';
-    debugBox.style.position = 'fixed';
-    debugBox.style.border = '3px solid red';
-    debugBox.style.pointerEvents = 'none';
-    debugBox.style.zIndex = '9999';
-    debugBox.style.boxShadow = '0 0 0 1px white';
-    document.body.appendChild(debugBox);
+    // match canvas pixel size to the wrapper box + devicePixelRatio
+    const rect = wrap.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+
+    drawCanvas.width  = rect.width * dpr;
+    drawCanvas.height = rect.height * dpr;
+
+    drawCtx = drawCanvas.getContext('2d');
+    drawCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    drawCtx.lineCap   = 'round';
+    drawCtx.lineJoin  = 'round';
+    drawCtx.lineWidth = 14;
+    drawCtx.strokeStyle = currentColor;
+
+    // Color buttons
+    document.querySelectorAll('.color-dot').forEach(btn => {
+      const color = btn.getAttribute('data-color');
+      btn.style.backgroundColor = color;
+
+      btn.addEventListener('click', () => {
+        currentColor = color;
+        drawCtx.strokeStyle = currentColor;
+      });
+    });
+
+    // Mouse events
+    drawCanvas.addEventListener('mousedown', startDraw);
+    drawCanvas.addEventListener('mousemove', drawMove);
+    window.addEventListener('mouseup', endDraw);
+
+    // Touch events
+    drawCanvas.addEventListener('touchstart', startDraw, {passive:false});
+    drawCanvas.addEventListener('touchmove', drawMove, {passive:false});
+    window.addEventListener('touchend', endDraw);
+
+    canvasReady = true;
   }
-  debugBox.style.left = box.x + 'px';
-  debugBox.style.top = box.y + 'px';
-  debugBox.style.width = box.width + 'px';
-  debugBox.style.height = box.height + 'px';
 
-  // STEP 3: Wait for render
-  await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+  function getPos(e) {
+    const rect = drawCanvas.getBoundingClientRect();
+    let clientX, clientY;
 
-  // STEP 4: CAPTURE
-  const canvas = await html2canvas(document.body, {
-    scale: window.devicePixelRatio,
-    useCORS: true,
-    x: box.x,
-    y: box.y,
-    width: box.width,
-    height: box.height
-  });
+    if (e.touches && e.touches.length) {
+      clientX = e.touches[0].clientX;
+      clientY = e.touches[0].clientY;
+    } else {
+      clientX = e.clientX;
+      clientY = e.clientY;
+    }
+    return {
+      x: clientX - rect.left,
+      y: clientY - rect.top
+    };
+  }
 
-  // STEP 5: HIDE PAGE AGAIN
-  if (wasHidden) page.classList.add('d-none');
+  function startDraw(e) {
+    e.preventDefault();
+    drawing = true;
+    const pos = getPos(e);
+    lastX = pos.x;
+    lastY = pos.y;
+  }
 
-  // STEP 6: REMOVE DEBUG BOX
-  setTimeout(() => debugBox.remove(), 800);
+  function drawMove(e) {
+    if (!drawing) return;
+    e.preventDefault();
+    const pos = getPos(e);
+    drawCtx.beginPath();
+    drawCtx.moveTo(lastX, lastY);
+    drawCtx.lineTo(pos.x, pos.y);
+    drawCtx.stroke();
+    lastX = pos.x;
+    lastY = pos.y;
+  }
 
-  // STEP 7: DOWNLOAD
-  canvas.toBlob(blob => {
-    if (!blob) return;
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `body-screenshot-${Date.now()}.png`;
-    a.click();
-    URL.revokeObjectURL(url);
-  }, 'image/png');
-}
-    
+  function endDraw(e) {
+    if (!drawing) return;
+    drawing = false;
+  }
+
+  // Override your showPage to initialize canvas when needed
+  const originalShowPage = window.showPage;
+  window.showPage = function (fromId, toId) {
+    if (originalShowPage) originalShowPage(fromId, toId);
+    else {
+      // simple fallback if you didn't have showPage before
+      if (fromId) document.getElementById(fromId).classList.add('d-none');
+      document.getElementById(toId).classList.remove('d-none');
+    }
+    if (toId === 'pageEnglish4_canvas') {
+      // make sure layout is visible before sizing canvas
+      setTimeout(initBodyCanvas, 50);
+    }
+  };
+
+  // ---------- Saving the drawing region ----------
+  async function saveBodyLocally() {
+    const node = document.getElementById('bodyWrap');
+
+    // html2canvas already loaded from CDN
+    const canvas = await html2canvas(node, {
+      backgroundColor: null,
+      scale: 2
+    });
+
+    // 1) download locally (good for kiosk debug)
+    canvas.toBlob(blob => {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'my-feelings.png';
+      a.click();
+      URL.revokeObjectURL(url);
+    }, 'image/png');
+
+    // 2) keep a copy for later emailing (e.g. send to server)
+    const dataUrl = canvas.toDataURL('image/png');
+    // Example: stash in localStorage for now
+    localStorage.setItem('feelingsImage', dataUrl);
+
+    // If you have an API endpoint, you could instead:
+    // await fetch('/save-feelings-image', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({ image: dataUrl })
+    // });
+
+    return true;
+  } 
     
     
     
@@ -96,3 +180,5 @@ async function saveBodyLocally() {
   //     console.log("POST failed:", err);
   //   }
   // });
+
+
