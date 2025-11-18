@@ -50,3 +50,21 @@
   cursor: pointer;
 }
 
+
+.color-dot {
+  position:absolute;
+  width:140px;
+  height:140px;
+  border-radius:50%;
+  border:none;
+  padding:0;
+  cursor:pointer;
+}
+
+/* use the data-color as background */
+.color-dot[data-color] {
+  background-color: currentColor;
+}
+
+/* little trick so each button actually has its own color in JS (see init below) */
+
