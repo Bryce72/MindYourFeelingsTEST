@@ -169,7 +169,7 @@ async function saveBodyLocally() {
  *********************************************************/
 
 // Where your WLED controller lives
-const WLED_URL = "http://192.168.0.65/json/state";
+const WLED_URL = "http://10.65.139.123/json/state";
 
 /**
  * Special helper states - not yet wired to UI, but ready if you need them
