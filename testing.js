@@ -168,7 +168,6 @@ async function saveBodyLocally() {
  * WLED patterns + emotion/color mapping
  *********************************************************/
 
-// Where your WLED controller lives
 const WLED_URL = "http://10.65.139.123/json/state";
 
 /**
@@ -342,7 +341,62 @@ async function sendWledPattern() {
  * - go back home
  *********************************************************/
 async function onFinalAccept() {
-  await saveBodyLocally();
-  await sendWledPattern();
-  showPage("pageEnglish4_canvas", "pageHome");
+
+  // remember to uncomment this out when im done testing locally
+  // await saveBodyLocally();
+  // await sendWledPattern();
+
+  // need to mod this to show next page based on emotion name
+  console.log("I am here!~~~~~~~~~~~~~~~~~~~",currentEmotion);
+
+
+  // plan on creating a dict here to map currentEmotion - to what the next page should be.
+  // Ill set amusement (aka happy) up first so. I dont forget
+
+  // TODO map rest of emotions for english.. will probably need to do it for spanish too
+  let emotionMap = {
+      "amusement": "pageEnglish5_happy",
+      // "fear": ,
+      // "content": ,
+      // "suprise": ,
+      // "sadness": ,
+      // "anger"
+  };
+
+  console.log("check map! run~~~~~", emotionMap[currentEmotion]);  // cool now I know this will work.
+  let nextPageFrom5 = emotionMap[currentEmotion];
+
+  console.log("next page id from 5 :", nextPageFrom5);
+
+  showPage("pageEnglish4_canvas", nextPageFrom5);
+}
+
+
+
+
+// function to turn the oled off
+async function sendWledOff() {
+  try {
+    const res = await fetch(WLED_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(WLED_SPECIAL.off)
+    });
+
+    if (!res.ok) {
+      console.warn("WLED OFF returned non-OK:", res.status);
+    } else {
+      console.log("WLED turned OFF / cleared");
+    }
+  } catch (err) {
+    console.error("Failed to POST OFF to WLED:", err);
+  }
+}
+
+
+
+// Using this for when the user just click finish with nothing sent to email
+function finalFinish(){
+  sendWledOff();
+  location.reload();
 }

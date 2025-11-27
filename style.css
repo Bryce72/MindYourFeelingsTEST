@@ -51,6 +51,26 @@
 }
 
 
+.hotspotpage5 {
+  position: absolute;
+  width: 595px;
+  height: 126px;
+  background: rgba(255, 255, 255, 0.15); 
+  border: 2px solid #00aaff;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.hotspotpage5v2 {
+  position: absolute;
+  width: 348px;
+  height: 126px;
+  background: rgba(255, 255, 255, 0.15); 
+  border: 2px solid #00aaff;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+
 .color-dot {
   position:absolute;
   width:140px;
