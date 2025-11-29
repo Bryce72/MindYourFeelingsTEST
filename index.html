@@ -12,6 +12,17 @@
 
   <!--to save canvas-->
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+  <!-- Form emailjs functionality -->
+   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+      (function() {
+        emailjs.init("FUJK-oMER0LpTg4_h");
+      })();
+    </script>
+
+
+
   <title>Mind Your Feelings</title>
 </head>
 
@@ -145,7 +156,7 @@
     <img id="tableBanner" class="feelings-drawing" alt="Your feeling drawing">
 
     <!-- send email-->
-    <button class="hotspotpage5" style="top:88.5%; left:8.5%;" onclick="showPage('pageEnglish5_happy', 'pageEmail')"></button>
+    <button class="hotspotpage5" style="top:88.5%; left:8.5%;" onclick="savePage5(); showPage('pageEnglish5_happy', 'pageEmail')"></button>
     <!-- finish-->
     <button class="hotspotpage5v2" style="top:88.5%; left:63%;" onclick="finalFinish()"></button>
   </div>
@@ -167,7 +178,7 @@
 
 
     <!-- send email-->
-    <button class="hotspotpage6" style="top:81.8%; left:16.5%;" onclick="showPage('pageEmail', 'pageEnglish5_happy')"></button>
+    <button class="hotspotpage6" style="top:81.8%; left:16.5%;" onclick="showPage('pageEmail', 'pageEnglish5_happy'); sendEmailWithImage()"></button>
     <!-- cancel-->
     <button class="hotspotpage6" style="top:81.8%; left:58.3%;" onclick="showPage('pageEmail', 'pageEnglish5_happy')"></button>
   </div>

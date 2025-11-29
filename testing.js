@@ -402,6 +402,7 @@ function finalFinish(){
 function clearStorage(){
   
   localStorage.removeItem("feelingsImage");
+  localStorage.removeItem("feelingsImagepage5_full");
   
 }
 
@@ -451,3 +452,112 @@ function displayImg(){
         console.log("No feelingsImage found in storage.");
     }
 }
+
+
+
+// saveing page 5 locally
+
+function getCurrentPage5Element() {
+    // find all English + Spanish page 5 containers
+    const pages = document.querySelectorAll('[id^="pageEnglish5_"], [id^="pageSpanish5_"]');
+
+    for (const p of pages) {
+        if (!p.classList.contains("d-none")) {
+            return p;  
+        }
+    }
+
+    return null; // none visible
+}
+
+
+
+
+
+
+
+async function savePage5() {
+    const page5 = getCurrentPage5Element();
+
+    if (!page5) {
+        console.error("No active Page 5 found");
+        return;
+    }
+
+    const canvas = await html2canvas(page5, {
+        backgroundColor: "#FFFFFF",
+        scale: 1,
+        useCORS: true,
+        imageSmoothingEnabled: true,
+        imageSmoothingQuality: "high"
+    });
+
+    const data = canvas.toDataURL("image/jpeg", 0.9); 
+    localStorage.setItem("feelingsImagepage5_full", data);
+
+    console.log("Saved smooth Page 5 screenshot!");
+}
+
+
+
+// email function
+async function sendEmailWithImage() {
+    const userEmail = document.getElementById("user_email").value;
+    const original = localStorage.getItem("feelingsImagepage5_full");
+
+    if (!original) {
+        Swal.fire("Error", "No image found.", "error");
+        return;
+    }
+
+    const finalImg = await compressImageBase64(original);
+
+    console.log("Final size:", Math.round(finalImg.length / 1024), "KB");
+
+
+    emailjs.send("service_fl7h4fc", "template_wy9659y", {
+        to_email: userEmail,
+        image_base64: finalImg
+    })
+    .then(() => Swal.fire("Sent!", "Your drawing has been emailed.", "success"))
+    .catch(e => {
+        console.log("EmailJS error:", e);
+        Swal.fire("Error", "Could not send email.", "error");
+    });
+}
+
+// reduces to 32KB
+function compressImageBase64(base64) {
+    return new Promise(resolve => {
+        const img = new Image();
+
+        img.onload = () => {
+            const canvas = document.createElement("canvas");
+
+            // Resize to 40% of original dimensions
+            canvas.width = img.width * 0.20;
+            canvas.height = img.height * 0.20;
+
+            const ctx = canvas.getContext("2d");
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = "high";
+
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+            
+            const compressed = canvas.toDataURL("image/jpeg", 0.50);
+            resolve(compressed);
+        };
+
+        img.src = base64;
+    });
+}
+
+
+
+
+
+
+
+
+
