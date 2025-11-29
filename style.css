@@ -128,3 +128,22 @@
     border-radius: 12px !important;   /* optional – soft corners */
 
 }
+
+
+#user_email{
+z-index: 30;
+top: 60%;
+left: 13%;
+height: 110px;
+position: absolute;
+width: 74%;
+background-color: transparent;
+color: white;
+font-size: 4em;
+border: none;
+font-weight: 600;
+
+}
+#user_email::placeholder{
+  color: aliceblue;
+}
