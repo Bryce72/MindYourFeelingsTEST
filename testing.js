@@ -18,6 +18,12 @@ function showPage(currentPageID, nextPageID) {
   if (nextPageID === "pageEnglish4_canvas") {
     setTimeout(initBodyCanvas, 50);
   }
+
+  // grabs img from local to display- only on page 5s
+  if (nextPageID.startsWith("pageEnglish5_") || nextPageID.startsWith("pageSpanish5_")) {
+    setTimeout(displayImg, 100);
+  }
+
 }
 
 /*********************************************************
@@ -132,6 +138,7 @@ function endDraw(e) {
 
 /*********************************************************
  * Save drawing region as PNG (for kiosk debug / later email)
+ * Saving it as base64 in localstorage as 'feelingsImage' - will later create a function to convert back to img
  *********************************************************/
 async function saveBodyLocally() {
   const node = document.getElementById("bodyWrap");
@@ -141,17 +148,6 @@ async function saveBodyLocally() {
     backgroundColor: null,
     scale: 2
   });
-
-  // 1) Download locally
-  canvas.toBlob(blob => {
-    if (!blob) return;
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "my-feelings.png";
-    a.click();
-    URL.revokeObjectURL(url);
-  }, "image/png");
 
   // 2) Store data URL (e.g., for later upload/email)
   const dataUrl = canvas.toDataURL("image/png");
@@ -343,7 +339,7 @@ async function sendWledPattern() {
 async function onFinalAccept() {
 
   // remember to uncomment this out when im done testing locally
-  // await saveBodyLocally();
+  await saveBodyLocally();
   // await sendWledPattern();
 
   // need to mod this to show next page based on emotion name
@@ -399,4 +395,59 @@ async function sendWledOff() {
 function finalFinish(){
   sendWledOff();
   location.reload();
+};
+
+
+// clear local storage for img
+function clearStorage(){
+  
+  localStorage.removeItem("feelingsImage");
+  
+}
+
+
+// This function is used for page 5. Was given 3 assets per emotion. so ill randomize it here
+function randomImg() {
+    let emotionMap = {
+      "amusement": ["./images/english/englishpage5_happy1.png", "./images/english/englishpage5_happy2.png", "./images/english/englishpage5_happy3.png"],
+      "fear": [""],
+      "content": [""],
+      "suprise": [""],
+      "sadness": [""],
+      "anger": [""]
+  };
+
+}
+
+
+
+// converting base64 from the localstorage to an img 
+// Source - https://stackoverflow.com/a
+// Posted by Fizzix, modified by community. See post 'Timeline' for change history
+// Retrieved 2025-11-28, License - CC BY-SA 4.0
+
+function getBase64Image(img) {
+    var canvas = document.createElement("canvas");
+    canvas.width = img.width;
+    canvas.height = img.height;
+
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0);
+
+    var dataURL = canvas.toDataURL("image/png");
+
+    return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+}
+
+
+function displayImg(){
+      var dataImage = localStorage.getItem('feelingsImage');
+    const bannerImg = document.getElementById('tableBanner');
+
+    if (dataImage) {
+        bannerImg.src = dataImage;
+        console.log("Loaded image from storage!");
+    } else {
+        console.log("No feelingsImage found in storage.");
+    }
 }

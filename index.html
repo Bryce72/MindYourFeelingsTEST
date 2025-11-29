@@ -22,8 +22,8 @@
     <img src="./images/home.jpg" alt="Mind Your Feelings - Page 1" class="page-img">
 
     <!-- Button positioned somewhere on the image -->
-    <button class="hotspot" style="top: 86%; left: 17%;" onclick="showPage('pageHome', 'pageEnglish')"></button>
-    <button class="hotspot" style="top: 86%; left: 53%;" onclick="showPage('pageHome', 'pageSpanish')"></button>
+    <button class="hotspot" style="top: 86%; left: 17%;" onclick="showPage('pageHome', 'pageEnglish'); clearStorage()"></button>
+    <button class="hotspot" style="top: 86%; left: 53%;" onclick="showPage('pageHome', 'pageSpanish'); clearStorage()"></button>
   </div>
 
   <!-- English page 2 -->
@@ -138,14 +138,22 @@
   <!--  TODO Route the next emotions for this page.. need to export img from google doc  -->
   <!-- English page 5 happy-->
   <div id="pageEnglish5_happy" class="page-container d-none">
-    <img src="./images/english/englishpage5_happy.png" class="page-img">
+    <img src="./images/english/englishpage5_happy1.png" class="page-img">
 
-    
+    <div class="white-cover-box"></div>
+    <!-- grabing the img from local storage and converting from base64 to img -->
+    <img id="tableBanner" class="feelings-drawing" alt="Your feeling drawing">
+
     <!-- send email-->
     <button class="hotspotpage5" style="top:88.5%; left:8.5%;" onclick="showPage('pageEnglish5_happy', 'pageEmail')"></button>
     <!-- finish-->
     <button class="hotspotpage5v2" style="top:88.5%; left:63%;" onclick="finalFinish()"></button>
   </div>
+
+  <!-- English page 5 surprise-->
+  <!-- English page 5 fear-->
+  <!-- English page 5 anger-->
+  <!-- English page 5 content-->
 
 
 
@@ -199,6 +207,10 @@
     integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
     crossorigin="anonymous"></script>
   <script src="./testing.js"></script>
+
+
+
+
 </body>
 
 </html>

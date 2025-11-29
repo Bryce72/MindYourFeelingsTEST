@@ -99,3 +99,32 @@
 
 /* little trick so each button actually has its own color in JS (see init below) */
 
+
+.feelings-drawing {
+    position: absolute !important;
+    top: 680px !important;     /* ← vertical position  */
+    left: 770px !important;    /* ←  horizontal position */
+    width: 400px !important;   
+    height: 600px !important;
+    border: 10px solid white !important;
+    border-radius: 20px !important;
+    z-index: 20 !important;
+    pointer-events: none !important; /* prevents accidental dragging */
+    image-rendering: -webkit-optimize-contrast; /* makes lines look crisp */
+}
+
+
+.white-cover-box {
+    position: absolute !important;
+    background: white !important;
+    z-index: 15 !important;        /* 10 = background, 15 = this box, 20 = your drawing */
+    
+   
+    left:   700px !important;
+    top:  720px !important;
+    width:  100px !important;
+    height: 130px !important;
+    
+    border-radius: 12px !important;   /* optional – soft corners */
+
+}
