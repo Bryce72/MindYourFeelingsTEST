@@ -140,20 +140,32 @@
     <button
       class="hotspotpage4"
       style="top:91.1%; left:29%;"
-      onclick="onFinalAccept()"
+      onclick="saveAndGo()"
       >
     </button>
   </div>
 
 
-  <!--  TODO Route the next emotions for this page.. need to export img from google doc  -->
+  <div id="pageenglishsendtobrain" class="page-container d-none">
+    <img src="./images/english/englishsendtobrainpage.jpg" class="page-img">
+
+    <img class="tableBannerBrain feelings-drawing1" alt="Your feeling drawing">
+
+
+    <div class="white-cover-box"></div>
+    <!-- grabing the img from local storage and converting from base64 to img -->
+    <button class="hotspotpagebrain" onclick="sendToBrain(); showPage('pageenglishsendtobrain', englishBrainPage)"></button>
+  </div>
+
+
   <!-- English page 5 happy-->
   <div id="pageEnglish5_happy" class="page-container d-none">
     <img src="./images/english/englishpage5_happy1.png" class="page-img">
 
     <div class="white-cover-box"></div>
     <!-- grabing the img from local storage and converting from base64 to img -->
-    <img id="tableBanner" class="feelings-drawing" alt="Your feeling drawing">
+    <img class="tableBanner feelings-drawing" alt="Your feeling drawing">
+
 
     <!-- send email-->
     <button class="hotspotpage5" style="top:88.5%; left:8.5%;" onclick="savePage5(); showPage('pageEnglish5_happy', 'pageEmail')"></button>
@@ -162,9 +174,65 @@
   </div>
 
   <!-- English page 5 surprise-->
+
+    <div id="pageEnglish5_suprise" class="page-container d-none">
+    <img src="./images/english/englishpage5_surprise1.png" class="page-img">
+
+    <div class="white-cover-box"></div>
+    <!-- grabing the img from local storage and converting from base64 to img -->
+    <img class="tableBanner feelings-drawing" alt="Your feeling drawing">
+
+
+    <!-- send email-->
+    <button class="hotspotpage5" style="top:88.5%; left:8.5%;" onclick="savePage5(); showPage('pageEnglish5_suprise', 'pageEmail')"></button>
+    <!-- finish-->
+    <button class="hotspotpage5v2" style="top:88.5%; left:63%;" onclick="finalFinish()"></button>
+  </div>
   <!-- English page 5 fear-->
+
+<div id="pageEnglish5_fear" class="page-container d-none">
+    <img src="./images/english/englishpage5_fear1.png" class="page-img">
+
+    <div class="white-cover-box"></div>
+    <!-- grabing the img from local storage and converting from base64 to img -->
+    <img class="tableBanner feelings-drawing" alt="Your feeling drawing">
+
+
+    <!-- send email-->
+    <button class="hotspotpage5" style="top:88.5%; left:8.5%;" onclick="savePage5(); showPage('pageEnglish5_fear', 'pageEmail')"></button>
+    <!-- finish-->
+    <button class="hotspotpage5v2" style="top:88.5%; left:63%;" onclick="finalFinish()"></button>
+  </div>
   <!-- English page 5 anger-->
+<div id="pageEnglish5_anger" class="page-container d-none">
+    <img src="./images/english/englishpage5_anger1.png" class="page-img">
+
+    <div class="white-cover-box"></div>
+    <!-- grabing the img from local storage and converting from base64 to img -->
+    <img class="tableBanner feelings-drawing" alt="Your feeling drawing">
+
+
+    <!-- send email-->
+    <button class="hotspotpage5" style="top:88.5%; left:8.5%;" onclick="savePage5(); showPage('pageEnglish5_anger', 'pageEmail')"></button>
+    <!-- finish-->
+    <button class="hotspotpage5v2" style="top:88.5%; left:63%;" onclick="finalFinish()"></button>
+  </div>
+
   <!-- English page 5 content-->
+
+  <div id="pageEnglish5_content" class="page-container d-none">
+    <img src="./images/english/englishpage5_content1.png" class="page-img">
+
+    <div class="white-cover-box"></div>
+    <!-- grabing the img from local storage and converting from base64 to img -->
+    <img class="tableBanner feelings-drawing" alt="Your feeling drawing">
+
+
+    <!-- send email-->
+    <button class="hotspotpage5" style="top:88.5%; left:8.5%;" onclick="savePage5(); showPage('pageEnglish5_content', 'pageEmail')"></button>
+    <!-- finish-->
+    <button class="hotspotpage5v2" style="top:88.5%; left:63%;" onclick="finalFinish()"></button>
+  </div>
 
 
 
