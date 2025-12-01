@@ -10,6 +10,7 @@
   object-fit: cover;
 }
 
+
 .hotspot {
   position: absolute;
   width: 335px;
@@ -71,6 +72,19 @@
 }
 
 
+.hotspotpagebrain{
+  top: 88.5%;
+  left: 25.5%;
+  position: absolute;
+  width: 595px;
+  height: 126px;
+  background: rgba(255, 255, 255, 0.15); 
+  border: 2px solid #00aaff;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+
 .hotspotpage6 {
   position: absolute;
   width: 307px;
@@ -113,6 +127,31 @@
     image-rendering: -webkit-optimize-contrast; /* makes lines look crisp */
 }
 
+
+.feelings-drawing1 {
+    position: absolute !important;
+    top: 580px !important;     /* ← vertical position  */
+    left: 240px !important;    /* ←  horizontal position */
+    width: 740px !important;   
+    height: 1100px !important;
+    border: 10px solid white !important;
+    border-radius: 20px !important;
+    z-index: 20 !important;
+    pointer-events: none !important; /* prevents accidental dragging */
+    image-rendering: -webkit-optimize-contrast; /* makes lines look crisp */
+}
+
+
+
+.page-imgv2 {
+    position: absolute !important;
+    z-index: 25 !important;        /* 10 = background, 15 = this box, 20 = your drawing */
+    left:   300px !important;
+    top:  720px !important;
+    width:  500px !important;
+    height: 630px !important;
+    border-radius: 12px !important;   /* optional – soft corners */
+}
 
 .white-cover-box {
     position: absolute !important;
