@@ -153,7 +153,7 @@ class CustomHandler(SimpleHTTPRequestHandler):
             msg = MIMEMultipart()
             msg['From'] = EMAIL_USER
             msg['To'] = to_email
-            msg['Subject'] = 'Mind Your Feelings Drawing & Resources'
+            msg['Subject'] = 'Here are Your Feelings Drawing & Resources'
 
             # Email body HTML
             html_body = f"""
@@ -161,7 +161,8 @@ class CustomHandler(SimpleHTTPRequestHandler):
               <body style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
                 <h2 style="color: #333;">Your Feelings Drawing</h2>
                 <p>Thank you for exploring your emotions with Mind Your Feelings.</p>
-                <p>Your drawing is attached to this email.</p>
+                <p>Your drawing and resources are attached to this email.</p>
+                <p>Take care, </p>
                 <hr style="margin: 20px 0; border: none; border-top: 1px solid #ddd;">
                 <p style="color: #666; font-size: 12px;">Mind Your Feelings</p>
               </body>

@@ -15,7 +15,7 @@ function showPage(currentPageID, nextPageID) {
   console.log("Page change:", currentPageID, "→", nextPageID);
 
   // If we're going to the canvas page, ensure the drawing surface is ready
-  if (nextPageID === "pageEnglish4_canvas") {
+  if ((nextPageID === "pageEnglish4_canvas") || (nextPageID === "pageSpanish4_canvas")) {
     setTimeout(initBodyCanvas, 50);
   }
 
@@ -757,6 +757,9 @@ function setEmotion(emotionName) {
 }
 
 async function sendWledPattern() {
+
+  console.log("this is the combo that should send!~~~~~~:", currentEmotion, currentColorKey);
+
   if (!currentEmotion || !currentColorKey) {
     console.warn("Missing emotion or color:", currentEmotion, currentColorKey);
     return;
