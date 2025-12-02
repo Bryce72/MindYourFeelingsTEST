@@ -254,11 +254,11 @@
 
     <!-- TODO Need to route the email-->
 
-    <input type="email" id="user_email" name="user_email" placeholder="Enter your email address" required>
+    <input type="email" class="user_email" placeholder="Enter your email address">
 
 
     <!-- send email-->
-    <button class="hotspotpage6" style="top:81.8%; left:16.5%;" onclick="showPage('pageEmail', 'pageHome'); sendEmailWithImage()"></button>
+    <button class="hotspotpage6" style="top:81.8%; left:16.5%;" onclick="sendEmailWithImage(); showPage('pageEmail', 'pageHome')"></button>
     <!-- cancel-->
     <button class="hotspotpage6" style="top:81.8%; left:58.3%;" onclick="showPage('pageEmail', englishBrainPage)"></button>
   </div>
@@ -335,19 +335,22 @@
     <button class="hotspotpage3" style="top:83.5%; left:55%;" onclick="showPage('pageSpanish3_anger', 'pageSpanish4_canvas')"></button>
   </div>
 
-  <!-- English Page 4 canvas-->
+  
+  
+  
+  <!-- Spanish Page 4 canvas-->
 
   <div id="pageSpanish4_canvas" class="page-container d-none">
     <img src="./images/spanish/spanishpage4_canvas.jpg" class="page-img">
 
     <!-- drawing area -->
-    <div id="bodyWrap"
+    <div id="bodyWrapSpanish"
         style="position:absolute; left:100px; top:570px; width:830px; height:1140px; z-index:5; background: white;">
       <!-- base body image -->
-      <img id="bodyImg" src="./images/body.png"
+      <img id="bodyImgSpanish" src="./images/body.png"
           style="position:absolute; inset:0; width:100%; height:100%; pointer-events:none;">
       <!-- canvas we actually draw on -->
-      <canvas id="draw"
+      <canvas id="drawSpanish"
               style="position:absolute; inset:0; width:100%; height:100%;"></canvas>
     </div>
 
@@ -371,7 +374,132 @@
     </button>
   </div>
 
+  <div id="pagespanishsendtobrain" class="page-container d-none">
+    <img src="./images/spanish/spanishsendtobrainpage.jpg" class="page-img">
 
+    <img class="tableBannerBrain feelings-drawing1" alt="Your feeling drawing">
+
+
+    <div class="white-cover-box"></div>
+    <!-- grabing the img from local storage and converting from base64 to img -->
+    <button class="hotspotpagebrain" onclick="sendToBrain(); showPage('pagespanishsendtobrain', spanishBrainPage)"></button>
+  </div>
+
+  <!-- Spanish page 5 happy-->
+  <div id="pageSpanish5_happy" class="page-container d-none">
+    <img src="./images/spanish/spanishpage5_happy1.png" class="page-img">
+  
+    <div class="white-cover-box"></div>
+    <!-- grabing the img from local storage and converting from base64 to img -->
+    <img class="tableBanner feelings-drawing" alt="Your feeling drawing">
+  
+  
+    <!-- send email-->
+    <button class="hotspotpage5" style="top:88.5%; left:8.5%;"
+      onclick="savePage5(); showPage('pageSpanish5_happy', 'pageSpanishEmail')"></button>
+    <!-- finish-->
+    <button class="hotspotpage5v2" style="top:88.5%; left:63%;" onclick="finalFinish()"></button>
+  
+    <!-- Sad page 5-->
+  </div>
+  
+  <div id="pageSpanish5_sad" class="page-container d-none">
+    <img src="./images/spanish/spanishpage5_sad1.png" class="page-img">
+  
+    <div class="white-cover-box spanishfear"></div>
+    <!-- grabing the img from local storage and converting from base64 to img -->
+    <img class="tableBanner feelings-drawing spanishsad" alt="Your feeling drawing">
+  
+  
+    <!-- send email-->
+    <button class="hotspotpage5" style="top:88.5%; left:8.5%;"
+      onclick="savePage5(); showPage('pageSpanish5_sad', 'pageSpanishEmail')"></button>
+    <!-- finish-->
+    <button class="hotspotpage5v2" style="top:88.5%; left:63%;" onclick="finalFinish()"></button>
+  </div>
+  <!-- Spanish page 5 surprise-->
+  
+  <div id="pageSpanish5_suprise" class="page-container d-none">
+    <img src="./images/spanish/spanishpage5_surprise1.png" class="page-img">
+  
+    <div class="white-cover-box"></div>
+    <!-- grabing the img from local storage and converting from base64 to img -->
+    <img class="tableBanner feelings-drawing spanishsuprise " alt="Your feeling drawing">
+  
+  
+    <!-- send email-->
+    <button class="hotspotpage5" style="top:88.5%; left:8.5%;"
+      onclick="savePage5(); showPage('pageSpanish5_suprise', 'pageSpanishEmail')"></button>
+    <!-- finish-->
+    <button class="hotspotpage5v2" style="top:88.5%; left:63%;" onclick="finalFinish()"></button>
+  </div>
+  <!-- Spanish page 5 fear-->
+  
+  <div id="pageSpanish5_fear" class="page-container d-none">
+    <img src="./images/spanish/spanishpage5_fear1.png" class="page-img">
+  
+    <div class="white-cover-box spanishfear"></div>
+    <!-- grabing the img from local storage and converting from base64 to img -->
+    <img class="tableBanner feelings-drawing spanishfear" alt="Your feeling drawing">
+  
+  
+    <!-- send email-->
+    <button class="hotspotpage5" style="top:88.5%; left:8.5%;"
+      onclick="savePage5(); showPage('pageSpanish5_fear', 'pageSpanishEmail')"></button>
+    <!-- finish-->
+    <button class="hotspotpage5v2" style="top:88.5%; left:63%;" onclick="finalFinish()"></button>
+  </div>
+
+
+  <!-- Spanish page 5 anger-->
+  <div id="pageSpanish5_anger" class="page-container d-none">
+    <img src="./images/spanish/spanishpage5_anger1.png" class="page-img">
+  
+    <div class="white-cover-box spanishfear"></div>
+    <!-- grabing the img from local storage and converting from base64 to img -->
+    <img class="tableBanner feelings-drawing spanishanger" alt="Your feeling drawing">
+  
+  
+    <!-- send email-->
+    <button class="hotspotpage5" style="top:88.5%; left:8.5%;"
+      onclick="savePage5(); showPage('pageSpanish5_anger', 'pageSpanishEmail')"></button>
+    <!-- finish-->
+    <button class="hotspotpage5v2" style="top:88.5%; left:63%;" onclick="finalFinish()"></button>
+  </div>
+  
+  <!-- Spanish page 5 content-->
+  
+  <div id="pageSpanish5_content" class="page-container d-none">
+    <img src="./images/spanish/spanishpage5_content1.png" class="page-img">
+  
+    <div class="white-cover-box spanishfear"></div>
+    <!-- grabing the img from local storage and converting from base64 to img -->
+    <img class="tableBanner feelings-drawing spanishcontent" alt="Your feeling drawing">
+  
+  
+    <!-- send email-->
+    <button class="hotspotpage5" style="top:88.5%; left:8.5%;"
+      onclick="savePage5(); showPage('pageSpanish5_content', 'pageSpanishEmail')"></button>
+    <!-- finish-->
+    <button class="hotspotpage5v2" style="top:88.5%; left:63%;" onclick="finalFinish()"></button>
+  </div>
+
+
+
+    <!-- final email page -->
+  <div id="pageSpanishEmail" class="page-container d-none">
+    <img src="./images/spanish/spanishpageemail.jpg" class="page-img">
+
+    <!-- TODO Need to route the email-->
+
+    <input type="email" class="user_email" placeholder="Ingrese su correo">
+
+
+    <!-- send email-->
+    <button class="hotspotpage6" style="top:81.8%; left:16.5%;" onclick="sendEmailWithImage(); showPage('pageSpanishEmail', 'pageHome')"></button>
+    <!-- cancel-->
+    <button class="hotspotpage6" style="top:81.8%; left:58.3%;" onclick="showPage('pageSpanishEmail', spanishBrainPage)"></button>
+  </div>
 
 
 

@@ -128,6 +128,7 @@
 }
 
 
+
 .feelings-drawing1 {
     position: absolute !important;
     top: 580px !important;     /* ← vertical position  */
@@ -169,7 +170,7 @@
 }
 
 
-#user_email{
+.user_email{
 z-index: 30;
 top: 60%;
 left: 13%;
@@ -183,6 +184,88 @@ border: none;
 font-weight: 600;
 
 }
-#user_email::placeholder{
+.user_email::placeholder{
   color: aliceblue;
+}
+
+
+
+.feelings-drawing.spanishfear {
+    position: absolute !important;
+    top: 654px !important;     /* ← vertical position  */
+    left: 770px !important;    /* ←  horizontal position */
+    width: 350px !important;   
+    height: 550px !important;
+    border: 10px solid white !important;
+    border-radius: 20px !important;
+    z-index: 20 !important;
+    pointer-events: none !important; /* prevents accidental dragging */
+    image-rendering: -webkit-optimize-contrast; /* makes lines look crisp */
+}
+
+.feelings-drawing.spanishsuprise {
+    position: absolute !important;
+    top: 653px !important;
+    left: 726px !important;
+    width: 392px !important;  
+    height: 550px !important;
+    border: 10px solid white !important;
+    border-radius: 20px !important;
+    z-index: 20 !important;
+    pointer-events: none !important; /* prevents accidental dragging */
+    image-rendering: -webkit-optimize-contrast; /* makes lines look crisp */
+}
+
+.feelings-drawing.spanishsad{
+    position: absolute !important;
+    top: 653px !important;
+    left: 755px !important;
+    width: 405px !important; 
+    height: 550px !important;
+    border: 10px solid white !important;
+    border-radius: 20px !important;
+    z-index: 20 !important;
+    pointer-events: none !important; /* prevents accidental dragging */
+    image-rendering: -webkit-optimize-contrast; /* makes lines look crisp */
+}
+
+.feelings-drawing.spanishanger{
+    position: absolute !important;
+    top: 653px !important;
+    left: 755px !important;
+    width: 405px !important; 
+    height: 550px !important;
+    border: 10px solid white !important;
+    border-radius: 20px !important;
+    z-index: 20 !important;
+    pointer-events: none !important; /* prevents accidental dragging */
+    image-rendering: -webkit-optimize-contrast; /* makes lines look crisp */
+}
+
+.feelings-drawing.spanishcontent{
+    position: absolute !important;
+    top: 674px !important;
+    left: 755px !important;
+    width: 405px !important; 
+    height: 550px !important;
+    border: 10px solid white !important;
+    border-radius: 20px !important;
+    z-index: 20 !important;
+    pointer-events: none !important; /* prevents accidental dragging */
+    image-rendering: -webkit-optimize-contrast; /* makes lines look crisp */
+}
+
+
+.white-cover-box.spanishfear{
+    position: absolute !important;
+    background: white !important;
+    z-index: 15 !important;        /* 10 = background, 15 = this box, 20 = your drawing */
+    
+   
+    left:   700px !important;
+    top:  665px !important;
+    width:  200px !important;
+    height: 130px !important;
+    
+    border-radius: 12px !important;   /* optional – soft corners */
 }

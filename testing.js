@@ -15,7 +15,8 @@ function showPage(currentPageID, nextPageID) {
   console.log("Page change:", currentPageID, "→", nextPageID);
 
   // If we're going to the canvas page, ensure the drawing surface is ready
-  if ((nextPageID === "pageEnglish4_canvas") || (nextPageID === "pageSpanish4_canvas")) {
+  if (nextPageID === "pageEnglish4_canvas" || nextPageID === ("pageSpanish4_canvas")) {
+    canvasReady = false; 
     setTimeout(initBodyCanvas, 50);
   }
 
@@ -47,10 +48,18 @@ let canvasReady = false;
 
 function initBodyCanvas() {
   if (canvasReady) return;
+  const activePage = document.querySelector(".page-container:not(.d-none)");
+  if (!activePage) return;
 
-  const wrap = document.getElementById("bodyWrap");
-  drawCanvas = document.getElementById("draw");
+  const wrap = activePage.querySelector("#bodyWrap, #bodyWrapSpanish");
+  drawCanvas = activePage.querySelector("canvas");
 
+  if (!wrap || !drawCanvas) {
+    console.warn("Canvas or wrap missing on this page");
+    return;
+  }
+
+  
   if (!wrap || !drawCanvas) {
     console.warn("bodyWrap/draw canvas missing");
     return;
@@ -149,8 +158,16 @@ function endDraw(e) {
  * Saving it as base64 in localstorage as 'feelingsImage' - will later create a function to convert back to img
  *********************************************************/
 async function saveBodyLocally() {
-  const node = document.getElementById("bodyWrap");
-  if (!node) return;
+    // Find the active page (English or Spanish page 4)
+  const activePage = document.querySelector(".page-container:not(.d-none)");
+  if (!activePage) return;
+
+  // Grab the correct wrap for this language
+  const node = activePage.querySelector("#bodyWrap, #bodyWrapSpanish");
+  if (!node) {
+    console.warn("No bodyWrap element found on the visible page");
+    return;
+  }
 
   const canvas = await html2canvas(node, {
     backgroundColor: null,
@@ -387,7 +404,7 @@ const WLED_PATTERNS = {
     }
   }
 },
-surprise: {
+suprise: {
   red: {
     seg: {
       i: [1,"FF0000",2,"FF0000",3,"FF0000",4,"FF0000",13,"FF0000",14,"FF0000",
@@ -748,8 +765,14 @@ let currentEmotion = null;   // e.g. "amusement"
 function setEmotion(emotionName) {
   currentEmotion = emotionName;
 
-  if(emotionName === 'amusement'){englishBrainPage = `pageEnglish5_happy`}
-  else{englishBrainPage = `pageEnglish5_${emotionName}`;}
+  if(emotionName === 'amusement'){
+    englishBrainPage = `pageEnglish5_happy`;
+    spanishBrainPage = `pageSpanish5_happy`;
+  }
+  else{
+    englishBrainPage = `pageEnglish5_${emotionName}`;
+    spanishBrainPage = `pageSpanish5_${emotionName}`;
+  }
   
 
 
@@ -821,7 +844,14 @@ async function saveAndGo() {
 
   console.log("next page id from 5 :", nextPageFrom5);
 
-  showPage("pageEnglish4_canvas", "pageenglishsendtobrain");
+  const visible = document.querySelector(".page-container:not(.d-none)");
+  const isEnglish = visible && visible.id.toLowerCase().includes("english");
+
+  if(isEnglish){
+    showPage("pageEnglish4_canvas", "pageenglishsendtobrain");
+  }else{
+    showPage("pageSpanish4_canvas", "pagespanishsendtobrain");
+  }
 }
 
 
@@ -975,6 +1005,7 @@ async function savePage5() {
 
     const data = canvas.toDataURL("image/jpeg", 0.9); 
     localStorage.setItem("feelingsImagepage5_full", data);
+    console.log("Page5 screenshot length:", data.length);
 
     console.log("Saved smooth Page 5 screenshot!");
 }
@@ -983,7 +1014,10 @@ async function savePage5() {
 
 // email function
 async function sendEmailWithImage() {
-    const email = document.getElementById("user_email").value;
+    const visiblePage = document.querySelector(".page-container:not(.d-none)");
+    const emailField = visiblePage.querySelector(".user_email");
+    const email = emailField ? emailField.value.trim() : "";
+
     const imageBase64 = localStorage.getItem("feelingsImagepage5_full");
     const emotion = currentEmotion || "unknown";
 
