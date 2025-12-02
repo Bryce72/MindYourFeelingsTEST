@@ -15,6 +15,7 @@ EMAIL_USER = os.environ.get('EMAIL_USER')
 EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD')
 
 
+
 class CustomHandler(SimpleHTTPRequestHandler):
     """Custom handler that serves static files and handles POST requests"""
 
@@ -152,7 +153,7 @@ class CustomHandler(SimpleHTTPRequestHandler):
             msg = MIMEMultipart()
             msg['From'] = EMAIL_USER
             msg['To'] = to_email
-            msg['Subject'] = 'Mind Your Feelings drawing'
+            msg['Subject'] = 'Mind Your Feelings Drawing & Resources'
 
             # Email body HTML
             html_body = f"""

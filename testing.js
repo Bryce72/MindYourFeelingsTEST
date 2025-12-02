@@ -26,7 +26,7 @@ function showPage(currentPageID, nextPageID) {
 
 
   if(nextPageID.startsWith("pageenglishsendtobrain") || nextPageID.startsWith("pagespanishsendtobrain")){
-    setTimeout(displayImg, 100);
+    setTimeout(displayImg, 2);
   }
 
 }
@@ -980,29 +980,38 @@ async function savePage5() {
 
 // email function
 async function sendEmailWithImage() {
-    const userEmail = document.getElementById("user_email").value;
-    const original = localStorage.getItem("feelingsImagepage5_full");
+    const email = document.getElementById("user_email").value;
+    const imageBase64 = localStorage.getItem("feelingsImagepage5_full");
+    const emotion = currentEmotion || "unknown";
 
-    if (!original) {
-        Swal.fire("Error", "No image found.", "error");
-        return;
+    const payload = {
+        email: email,
+        emotion: emotion,
+        image: imageBase64
+    };
+
+    try {
+        const res = await fetch("http://localhost:1024/api/send-email", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        });
+
+        const json = await res.json();
+
+        if (json.success) {
+            Swal.fire("Sent!", "Your drawing has been emailed.", "success");
+        } else {
+            Swal.fire("Error", json.error || "Failed to send email.", "error");
+        }
+
+    } catch (err) {
+        console.error(err);
+        Swal.fire("Error", "Could not connect to email server.", "error");
     }
-
-    const finalImg = await compressImageBase64(original);
-
-    console.log("Final size:", Math.round(finalImg.length / 1024), "KB");
-
-
-    emailjs.send("service_fl7h4fc", "template_wy9659y", {
-        to_email: userEmail,
-        image_base64: finalImg
-    })
-    .then(() => Swal.fire("Sent!", "Your drawing has been emailed.", "success"))
-    .catch(e => {
-        console.log("EmailJS error:", e);
-        Swal.fire("Error", "Could not send email.", "error");
-    });
 }
+
+
 
 // reduces to 32KB
 function compressImageBase64(base64) {
