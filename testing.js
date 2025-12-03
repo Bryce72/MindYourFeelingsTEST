@@ -893,7 +893,9 @@ async function sendWledOff() {
 // Using this for when the user just click finish with nothing sent to email
 function finalFinish(){
   sendWledOff();
-  location.reload();
+  setTimeout(() => {
+        location.reload();
+    }, 1500);
 };
 
 

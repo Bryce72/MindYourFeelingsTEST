@@ -15,8 +15,9 @@
   position: absolute;
   width: 335px;
   height: 100px;
-  background: rgba(255, 255, 255, 0.15); 
-  border: 2px solid #00aaff;
+  /* background: rgba(255, 255, 255, 0.15);  */
+  background: transparent;
+  border: none;
   border-radius: 10px;
   cursor: pointer;
 }
@@ -25,8 +26,10 @@
   position: absolute;
   width: 370px;
   height: 370px;
-  background: rgba(255, 255, 255, 0.15); 
-  border: 2px solid #00aaff;
+  /* background: rgba(255, 255, 255, 0.15);  */
+  /* border: 2px solid #00aaff; */
+    background: transparent;
+  border: none;
   border-radius: 10px;
   cursor: pointer;
 }
@@ -35,8 +38,10 @@
   position: absolute;
   width: 335px;
   height: 100px;
-  background: rgba(255, 255, 255, 0.15); 
-  border: 2px solid #00aaff;
+  /* background: rgba(255, 255, 255, 0.15);  */
+  /* border: 2px solid #00aaff; */
+  background: transparent;
+  border: none;
   border-radius: 10px;
   cursor: pointer;
 }
@@ -45,8 +50,10 @@
   position: absolute;
   width: 330px;
   height: 100px;
-  background: rgba(255, 255, 255, 0.15); 
-  border: 2px solid #00aaff;
+  /* background: rgba(255, 255, 255, 0.15); 
+  border: 2px solid #00aaff; */
+    background: transparent;
+  border: none;
   border-radius: 10px;
   cursor: pointer;
 }
@@ -56,8 +63,10 @@
   position: absolute;
   width: 595px;
   height: 126px;
-  background: rgba(255, 255, 255, 0.15); 
-  border: 2px solid #00aaff;
+  /* background: rgba(255, 255, 255, 0.15); 
+  border: 2px solid #00aaff; */
+    background: transparent;
+  border: none;
   border-radius: 10px;
   cursor: pointer;
 }
@@ -65,8 +74,10 @@
   position: absolute;
   width: 348px;
   height: 126px;
-  background: rgba(255, 255, 255, 0.15); 
-  border: 2px solid #00aaff;
+  /* background: rgba(255, 255, 255, 0.15); 
+  border: 2px solid #00aaff; */
+    background: transparent;
+  border: none;
   border-radius: 10px;
   cursor: pointer;
 }
@@ -78,8 +89,10 @@
   position: absolute;
   width: 595px;
   height: 126px;
-  background: rgba(255, 255, 255, 0.15); 
-  border: 2px solid #00aaff;
+  /* background: rgba(255, 255, 255, 0.15); 
+  border: 2px solid #00aaff; */
+    background: transparent;
+  border: none;
   border-radius: 10px;
   cursor: pointer;
 }
@@ -89,8 +102,10 @@
   position: absolute;
   width: 307px;
   height: 126px;
-  background: rgba(255, 255, 255, 0.15); 
-  border: 2px solid #00aaff;
+  /* background: rgba(255, 255, 255, 0.15); 
+  border: 2px solid #00aaff; */
+    background: transparent;
+  border: none;
   border-radius: 10px;
   cursor: pointer;
 }

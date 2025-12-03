@@ -164,7 +164,7 @@
     <!-- send email-->
     <button class="hotspotpage5" style="top:88.5%; left:8.5%;" onclick="savePage5(); showPage('pageEnglish5_happy', 'pageEmail')"></button>
     <!-- finish-->
-    <button class="hotspotpage5v2" style="top:88.5%; left:63%;" onclick="finalFinish()"></button>
+    <button class="hotspotpage5v2" style="top:88.5%; left:63%;" onclick="showPage('pageEnglish5_happy', 'finalEnglish');finalFinish()"></button>
   
   <!-- Sad page 5-->
   </div>
@@ -180,7 +180,7 @@
     <!-- send email-->
     <button class="hotspotpage5" style="top:88.5%; left:8.5%;" onclick="savePage5(); showPage('pageEnglish5_sad', 'pageEmail')"></button>
     <!-- finish-->
-    <button class="hotspotpage5v2" style="top:88.5%; left:63%;" onclick="finalFinish()"></button>
+    <button class="hotspotpage5v2" style="top:88.5%; left:63%;" onclick="showPage('pageEnglish5_sad', 'finalEnglish'); finalFinish()"></button>
   </div>
 
 
@@ -198,7 +198,7 @@
     <!-- send email-->
     <button class="hotspotpage5" style="top:88.5%; left:8.5%;" onclick="savePage5(); showPage('pageEnglish5_suprise', 'pageEmail')"></button>
     <!-- finish-->
-    <button class="hotspotpage5v2" style="top:88.5%; left:63%;" onclick="finalFinish()"></button>
+    <button class="hotspotpage5v2" style="top:88.5%; left:63%;" onclick="showPage('pageEnglish5_suprise', 'finalEnglish'); finalFinish()"></button>
   </div>
   <!-- English page 5 fear-->
 
@@ -213,7 +213,7 @@
     <!-- send email-->
     <button class="hotspotpage5" style="top:88.5%; left:8.5%;" onclick="savePage5(); showPage('pageEnglish5_fear', 'pageEmail')"></button>
     <!-- finish-->
-    <button class="hotspotpage5v2" style="top:88.5%; left:63%;" onclick="finalFinish()"></button>
+    <button class="hotspotpage5v2" style="top:88.5%; left:63%;" onclick="showPage('pageEnglish5_fear', 'finalEnglish'); finalFinish()"></button>
   </div>
   <!-- English page 5 anger-->
 <div id="pageEnglish5_anger" class="page-container d-none">
@@ -227,7 +227,7 @@
     <!-- send email-->
     <button class="hotspotpage5" style="top:88.5%; left:8.5%;" onclick="savePage5(); showPage('pageEnglish5_anger', 'pageEmail')"></button>
     <!-- finish-->
-    <button class="hotspotpage5v2" style="top:88.5%; left:63%;" onclick="finalFinish()"></button>
+    <button class="hotspotpage5v2" style="top:88.5%; left:63%;" onclick="showPage('pageEnglish5_anger', 'finalEnglish'); finalFinish()"></button>
   </div>
 
   <!-- English page 5 content-->
@@ -243,7 +243,7 @@
     <!-- send email-->
     <button class="hotspotpage5" style="top:88.5%; left:8.5%;" onclick="savePage5(); showPage('pageEnglish5_content', 'pageEmail')"></button>
     <!-- finish-->
-    <button class="hotspotpage5v2" style="top:88.5%; left:63%;" onclick="finalFinish()"></button>
+    <button class="hotspotpage5v2" style="top:88.5%; left:63%;" onclick="showPage('pageEnglish5_content', 'finalEnglish'); finalFinish()"></button>
   </div>
 
 
@@ -251,18 +251,18 @@
   <!-- final email page -->
   <div id="pageEmail" class="page-container d-none">
     <img src="./images/english/englishpageemail.jpg" class="page-img">
-
-    <!-- TODO Need to route the email-->
-
     <input type="email" class="user_email" placeholder="Enter your email address">
-
-
     <!-- send email-->
-    <button class="hotspotpage6" style="top:81.8%; left:16.5%;" onclick="sendEmailWithImage(); showPage('pageEmail', 'pageHome')"></button>
+    <button class="hotspotpage6" style="top:81.8%; left:16.5%;" onclick="sendEmailWithImage(); showPage('pageEmail', 'finalEnglish'); finalFinish()"></button>
     <!-- cancel-->
     <button class="hotspotpage6" style="top:81.8%; left:58.3%;" onclick="showPage('pageEmail', englishBrainPage)"></button>
   </div>
 
+
+
+  <div id="finalEnglish" class="page-container d-none">
+    <img src="./images/english/finalEnglish.jpg" class="page-img">
+  </div>
 
 
   
@@ -398,7 +398,7 @@
     <button class="hotspotpage5" style="top:88.5%; left:8.5%;"
       onclick="savePage5(); showPage('pageSpanish5_happy', 'pageSpanishEmail')"></button>
     <!-- finish-->
-    <button class="hotspotpage5v2" style="top:88.5%; left:63%;" onclick="finalFinish()"></button>
+    <button class="hotspotpage5v2" style="top:88.5%; left:63%;" onclick="showPage('pageSpanish5_happy', 'finalSpanish');finalFinish()"></button>
   
     <!-- Sad page 5-->
   </div>
@@ -415,7 +415,7 @@
     <button class="hotspotpage5" style="top:88.5%; left:8.5%;"
       onclick="savePage5(); showPage('pageSpanish5_sad', 'pageSpanishEmail')"></button>
     <!-- finish-->
-    <button class="hotspotpage5v2" style="top:88.5%; left:63%;" onclick="finalFinish()"></button>
+    <button class="hotspotpage5v2" style="top:88.5%; left:63%;" onclick="showPage('pageSpanish5_sad', 'finalSpanish');finalFinish()"></button>
   </div>
   <!-- Spanish page 5 surprise-->
   
@@ -431,7 +431,7 @@
     <button class="hotspotpage5" style="top:88.5%; left:8.5%;"
       onclick="savePage5(); showPage('pageSpanish5_suprise', 'pageSpanishEmail')"></button>
     <!-- finish-->
-    <button class="hotspotpage5v2" style="top:88.5%; left:63%;" onclick="finalFinish()"></button>
+    <button class="hotspotpage5v2" style="top:88.5%; left:63%;" onclick="showPage('pageSpanish5_suprise', 'finalSpanish');finalFinish()"></button>
   </div>
   <!-- Spanish page 5 fear-->
   
@@ -447,7 +447,7 @@
     <button class="hotspotpage5" style="top:88.5%; left:8.5%;"
       onclick="savePage5(); showPage('pageSpanish5_fear', 'pageSpanishEmail')"></button>
     <!-- finish-->
-    <button class="hotspotpage5v2" style="top:88.5%; left:63%;" onclick="finalFinish()"></button>
+    <button class="hotspotpage5v2" style="top:88.5%; left:63%;" onclick="showPage('pageSpanish5_fear', 'finalSpanish');finalFinish()"></button>
   </div>
 
 
@@ -464,7 +464,7 @@
     <button class="hotspotpage5" style="top:88.5%; left:8.5%;"
       onclick="savePage5(); showPage('pageSpanish5_anger', 'pageSpanishEmail')"></button>
     <!-- finish-->
-    <button class="hotspotpage5v2" style="top:88.5%; left:63%;" onclick="finalFinish()"></button>
+    <button class="hotspotpage5v2" style="top:88.5%; left:63%;" onclick="showPage('pageSpanish5_anger', 'finalSpanish'); finalFinish()"></button>
   </div>
   
   <!-- Spanish page 5 content-->
@@ -476,12 +476,11 @@
     <!-- grabing the img from local storage and converting from base64 to img -->
     <img class="tableBanner feelings-drawing spanishcontent" alt="Your feeling drawing">
   
-  
     <!-- send email-->
     <button class="hotspotpage5" style="top:88.5%; left:8.5%;"
       onclick="savePage5(); showPage('pageSpanish5_content', 'pageSpanishEmail')"></button>
     <!-- finish-->
-    <button class="hotspotpage5v2" style="top:88.5%; left:63%;" onclick="finalFinish()"></button>
+    <button class="hotspotpage5v2" style="top:88.5%; left:63%;" onclick="showPage('pageSpanish5_content', 'finalSpanish'); finalFinish()"></button>
   </div>
 
 
@@ -489,16 +488,15 @@
     <!-- final email page -->
   <div id="pageSpanishEmail" class="page-container d-none">
     <img src="./images/spanish/spanishpageemail.jpg" class="page-img">
-
-    <!-- TODO Need to route the email-->
-
     <input type="email" class="user_email" placeholder="Ingrese su correo">
-
-
     <!-- send email-->
-    <button class="hotspotpage6" style="top:81.8%; left:16.5%;" onclick="sendEmailWithImage(); showPage('pageSpanishEmail', 'pageHome')"></button>
+    <button class="hotspotpage6" style="top:81.8%; left:16.5%;" onclick="sendEmailWithImage(); showPage('pageSpanishEmail', 'finalSpanish'); finalFinish()"></button>
     <!-- cancel-->
     <button class="hotspotpage6" style="top:81.8%; left:58.3%;" onclick="showPage('pageSpanishEmail', spanishBrainPage)"></button>
+  </div>
+
+  <div id="finalSpanish" class="page-container d-none">
+    <img src="./images/spanish/finalSpanish.jpg" class="page-img">
   </div>
 
 
