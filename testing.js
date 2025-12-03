@@ -189,7 +189,7 @@ async function saveBodyLocally() {
  * WLED patterns + emotion/color mapping
  *********************************************************/
 
-const WLED_URL = "http://10.65.139.123/json/state";
+const WLED_URL = "http://10.95.50.123/json/state";
 
 /**
  * Special helper states - not yet wired to UI, but ready if you need them
@@ -1078,9 +1078,6 @@ function compressImageBase64(base64) {
         img.src = base64;
     });
 }
-
-
-
 
 
 
